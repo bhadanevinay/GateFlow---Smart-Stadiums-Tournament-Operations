@@ -178,9 +178,16 @@ pytest --cov=app --cov-branch --cov-fail-under=100
 
 ---
 
-## Deployment (Docker)
+## Cloud Deployment Guides
 
-To build and run the slim production container:
+GateFlow is fully containerized and cloud-ready. Refer to the step-by-step guides below to deploy to your preferred cloud provider:
+
+- **[Deploy to Google Cloud Run](DEPLOYMENT.md)** - Serverless container deployment
+- **[Deploy to Microsoft Azure VM](AZURE_VM_DEPLOYMENT.md)** - Dedicated Virtual Machine deployment
+
+## Local Deployment (Docker)
+
+To build and run the slim production container locally:
 ```bash
 # Build the Docker image
 docker build -t gateflow:latest .
