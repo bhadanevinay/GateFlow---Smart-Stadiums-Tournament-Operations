@@ -1,5 +1,7 @@
 # GateFlow API
 
+🚀 **Live Deployment:** [https://gateflow.duckdns.org/](https://gateflow.duckdns.org/)
+
 GateFlow is a real-time stadium pedestrian flow routing and transit advising system. It calculates optimized paths for stadium arrivals and egress, taking into account user context, seat sections, real-time gate congestion levels, and accessibility needs. The system features a deterministic core routing engine paired with a localized templates or LLM phrasing layer (using Google Gemini) to generate natural language directions.
 
 ## Key Features
