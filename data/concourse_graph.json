@@ -1,0 +1,134 @@
+{
+  "nodes": [
+    "metro_station",
+    "parking_lot_a",
+    "rideshare_dropoff",
+    "shuttle_bus_stop",
+    "concourse_north",
+    "concourse_east",
+    "concourse_south",
+    "concourse_west",
+    "gate_a",
+    "gate_b",
+    "gate_c",
+    "gate_d",
+    "section_101",
+    "section_128",
+    "section_210",
+    "section_220"
+  ],
+  "edges": [
+    {
+      "source": "metro_station",
+      "target": "concourse_south",
+      "distance": 200.0,
+      "step_free": true,
+      "landmark_description": "Follow the wide ramp next to the main ticket gates."
+    },
+    {
+      "source": "parking_lot_a",
+      "target": "concourse_west",
+      "distance": 350.0,
+      "step_free": true,
+      "landmark_description": "Cross the signalized crosswalk near parking pillar P-12."
+    },
+    {
+      "source": "rideshare_dropoff",
+      "target": "concourse_east",
+      "distance": 150.0,
+      "step_free": false,
+      "landmark_description": "Go up the concrete stairs from the drop-off lane."
+    },
+    {
+      "source": "shuttle_bus_stop",
+      "target": "concourse_north",
+      "distance": 250.0,
+      "step_free": true,
+      "landmark_description": "Walk along the tactile paved pathway from the bus platform."
+    },
+    {
+      "source": "concourse_north",
+      "target": "gate_a",
+      "distance": 100.0,
+      "step_free": true,
+      "landmark_description": "Pass the security checkpoint next to the statue."
+    },
+    {
+      "source": "concourse_east",
+      "target": "gate_b",
+      "distance": 120.0,
+      "step_free": false,
+      "landmark_description": "Go up the east entry stairs."
+    },
+    {
+      "source": "concourse_south",
+      "target": "gate_c",
+      "distance": 80.0,
+      "step_free": true,
+      "landmark_description": "Enter through the wide accessible gates of Gate C."
+    },
+    {
+      "source": "concourse_west",
+      "target": "gate_d",
+      "distance": 130.0,
+      "step_free": true,
+      "landmark_description": "Pass the ticket check counter next to the elevator."
+    },
+    {
+      "source": "concourse_north",
+      "target": "concourse_east",
+      "distance": 300.0,
+      "step_free": true,
+      "landmark_description": "Walk along the outer concourse pathway."
+    },
+    {
+      "source": "concourse_east",
+      "target": "concourse_south",
+      "distance": 300.0,
+      "step_free": true,
+      "landmark_description": "Walk along the outer concourse pathway."
+    },
+    {
+      "source": "concourse_south",
+      "target": "concourse_west",
+      "distance": 300.0,
+      "step_free": true,
+      "landmark_description": "Walk along the outer concourse pathway."
+    },
+    {
+      "source": "concourse_west",
+      "target": "concourse_north",
+      "distance": 300.0,
+      "step_free": true,
+      "landmark_description": "Walk along the outer concourse pathway."
+    },
+    {
+      "source": "gate_a",
+      "target": "section_101",
+      "distance": 50.0,
+      "step_free": true,
+      "landmark_description": "Walk down the accessible ramp leading to the lower tier."
+    },
+    {
+      "source": "gate_b",
+      "target": "section_210",
+      "distance": 70.0,
+      "step_free": false,
+      "landmark_description": "Use the stairwell behind gate entrance B."
+    },
+    {
+      "source": "gate_c",
+      "target": "section_128",
+      "distance": 60.0,
+      "step_free": true,
+      "landmark_description": "Follow the accessible path on the south concourse, right side."
+    },
+    {
+      "source": "gate_d",
+      "target": "section_220",
+      "distance": 80.0,
+      "step_free": true,
+      "landmark_description": "Use the main accessible ramp to the upper tier."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "metro": {
+    "name": "Stadium Central Metro",
+    "base_eta_minutes": 15,
+    "base_wait_minutes": 5,
+    "congestion_multiplier": 1.5,
+    "arrival_node": "metro_station"
+  },
+  "parking": {
+    "name": "General Parking Lot A",
+    "base_eta_minutes": 25,
+    "base_wait_minutes": 10,
+    "congestion_multiplier": 1.2,
+    "arrival_node": "parking_lot_a"
+  },
+  "rideshare": {
+    "name": "Rideshare Zone East",
+    "base_eta_minutes": 20,
+    "base_wait_minutes": 12,
+    "congestion_multiplier": 1.8,
+    "arrival_node": "rideshare_dropoff"
+  },
+  "shuttle": {
+    "name": "Tournament Express Shuttle",
+    "base_eta_minutes": 10,
+    "base_wait_minutes": 8,
+    "congestion_multiplier": 1.1,
+    "arrival_node": "shuttle_bus_stop"
+  }
+}

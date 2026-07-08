@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+wheels/
+*.whl
+*.egg-link
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment / secrets
+.env
+*.local
+
+# Test & coverage artifacts
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
+nosetests.xml
+test-results/
+
+# Type-checker caches
+.mypy_cache/
+.pytype/
+
+# Linter caches
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker
+*.dockerignore
+
+# Project-specific large files
+deep-research-report.md
+project_create.md
+SCORE_ANALYSIS.md

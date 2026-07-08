@@ -1,0 +1,34 @@
+[
+  {
+    "id": "gate_a",
+    "name": "Gate A (North Plaza)",
+    "step_free": true,
+    "sensory_friendly": true,
+    "audio_cues": false,
+    "base_capacity_per_min": 150
+  },
+  {
+    "id": "gate_b",
+    "name": "Gate B (East Wing)",
+    "step_free": false,
+    "sensory_friendly": false,
+    "audio_cues": true,
+    "base_capacity_per_min": 100
+  },
+  {
+    "id": "gate_c",
+    "name": "Gate C (South Metro Gate)",
+    "step_free": true,
+    "sensory_friendly": true,
+    "audio_cues": true,
+    "base_capacity_per_min": 250
+  },
+  {
+    "id": "gate_d",
+    "name": "Gate D (West Parking Gate)",
+    "step_free": true,
+    "sensory_friendly": false,
+    "audio_cues": false,
+    "base_capacity_per_min": 120
+  }
+]

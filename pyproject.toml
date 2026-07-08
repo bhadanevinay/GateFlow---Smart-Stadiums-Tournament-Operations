@@ -1,0 +1,71 @@
+[tool.ruff]
+# Target Python version
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+# Enable all rules by default
+select = [
+    "ALL"
+]
+# Ignore specific rules that are too restrictive or conflict
+ignore = [
+    "D100",    # Missing docstring in public module (we enforce this with interrogate instead)
+    "D104",    # Missing docstring in public package
+    "D203",    # One blank line before class (conflicts with D211)
+    "D213",    # Multi-line docstring summary second line (conflicts with D212)
+    "COM812",  # Trailing comma missing (conflicts with ruff format)
+    "ISC001",  # Single-line implicit string concatenation (conflicts with ruff format)
+    "TRY003",  # Avoid specifying long messages in outside exception class (too strict)
+    "EM101",   # Exception must not use a string literal (too strict)
+    "EM102",   # Exception must not use an f-string (too strict)
+    "D401",    # First line of docstring should be in imperative mood (too strict)
+    "E501",    # Line too long (handled by formatter where possible, but allow long string/docstring literals)
+    "PLR0913", # Too many arguments in function definition (necessary for domain parameters)
+    "TC001",   # Move import into type-checking block (disabled for Pydantic runtime validation compatibility)
+    "TC002",   # Move third-party import into type-checking block (disabled for Pydantic)
+    "TC003",   # Move standard library import into type-checking block (disabled for Pydantic)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"app/services/llm_client.py" = ["ARG002"]
+"tests/**/*.py" = [
+    "S101",    # Use of assert in tests is standard
+    "PLR2004", # Magic values in tests are standard
+    "D103",    # Missing docstring in public function (tests don't need docstrings)
+    "D101",    # Missing docstring in public class
+    "D102",    # Missing docstring in public method
+    "ANN",     # Test function annotations are optional
+    "SLF001",  # Accessing private members in tests is standard
+    "FBT001",  # Boolean positional arguments in tests
+    "FBT003",  # Boolean positional values in tests
+    "E501",    # Allow long lines in tests (e.g. mock strings/comments)
+    "ARG002",  # Allow unused arguments in mock test methods
+    "PGH003",  # Allow generic type: ignore in tests
+    "ERA001",  # Allow commented-out notes in tests
+    "RUF059",  # Allow unused unpacked variables in tests (for showing return signatures)
+]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+ignore_missing_imports = true
+disallow_untyped_defs = true
+disallow_any_generics = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = true
+ignore-magic = true
+ignore-semiprivate = true
+ignore-private = true
+ignore-property-decorators = true
+ignore-module = false
+fail-under = 100
+exclude = ["setup.py", "docs", "tests", ".venv"]
+verbose = 1
+quiet = false
+color = true

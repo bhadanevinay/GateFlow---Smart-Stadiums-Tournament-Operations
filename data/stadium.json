@@ -1,0 +1,40 @@
+{
+  "name": "Lusail Iconic Stadium",
+  "total_capacity": 80000,
+  "zones": {
+    "concourse_north": {
+      "name": "Concourse North",
+      "description": "North gate access and entry plaza"
+    },
+    "concourse_south": {
+      "name": "Concourse South",
+      "description": "South gate access and metro connection"
+    },
+    "concourse_east": {
+      "name": "Concourse East",
+      "description": "East gate access and bus terminals"
+    },
+    "concourse_west": {
+      "name": "Concourse West",
+      "description": "West gate access and parking lots"
+    }
+  },
+  "sections": {
+    "101": {
+      "zone": "concourse_north",
+      "accessible": true
+    },
+    "128": {
+      "zone": "concourse_south",
+      "accessible": true
+    },
+    "210": {
+      "zone": "concourse_east",
+      "accessible": false
+    },
+    "220": {
+      "zone": "concourse_west",
+      "accessible": true
+    }
+  }
+}

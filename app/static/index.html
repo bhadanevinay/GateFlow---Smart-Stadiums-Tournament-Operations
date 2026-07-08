@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GateFlow — Crowd Flow & Transportation Copilot</title>
+  <meta name="description" content="Real-time crowd routing, exit planning, and transport guidance copilot for FIFA World Cup 2026.">
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header Section -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-area">
+        <span class="logo-icon" aria-hidden="true">Stadium</span>
+        <div class="logo-text">
+          <span class="logo-brand">GateFlow</span>
+          <span class="logo-badge">FIFA 2026 Copilot</span>
+        </div>
+      </div>
+      <nav class="header-nav" aria-label="System Quick Stats">
+        <div class="status-indicator">
+          <span class="status-dot online" id="system-status-dot"></span>
+          <span id="system-status-text">Connecting to Live Engine...</span>
+        </div>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle light and dark theme">
+          <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+          <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <main id="main-content" class="main-layout">
+    <div class="layout-container">
+      
+      <!-- Left Column: Input Form -->
+      <section class="panel input-panel" aria-labelledby="form-heading">
+        <h2 id="form-heading" class="panel-title">Trip Planning & Copilot</h2>
+        
+        <form id="assist-form" novalidate>
+          
+          <!-- Language Selection -->
+          <div class="form-group">
+            <label for="language-select">Preferred Language</label>
+            <div class="select-wrapper">
+              <select id="language-select" name="language">
+                <option value="en">English (EN)</option>
+                <option value="es">Español (ES)</option>
+                <option value="fr">Français (FR)</option>
+                <option value="hi">हिन्दी (HI)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Section & Location Selection -->
+          <div class="grid-2col">
+            <div class="form-group">
+              <label for="location-select">Current Location</label>
+              <div class="select-wrapper">
+                <select id="location-select" name="current_location" required>
+                  <option value="" disabled selected>Select location...</option>
+                  <option value="metro_station">Stadium Central Metro</option>
+                  <option value="parking_lot_a">General Parking Lot A</option>
+                  <option value="rideshare_dropoff">Rideshare Zone East</option>
+                  <option value="shuttle_bus_stop">Tournament Express Shuttle</option>
+                  <option value="concourse_north">Concourse North</option>
+                  <option value="concourse_east">Concourse East</option>
+                  <option value="concourse_south">Concourse South</option>
+                  <option value="concourse_west">Concourse West</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="section-select">Ticket Section</label>
+              <div class="select-wrapper">
+                <select id="section-select" name="ticket_section" required>
+                  <option value="" disabled selected>Select section...</option>
+                  <option value="101">Section 101 (North Side)</option>
+                  <option value="128">Section 128 (South Side)</option>
+                  <option value="210">Section 210 (East Side)</option>
+                  <option value="220">Section 220 (West Side)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Transit Mode -->
+          <div class="form-group">
+            <label for="arrival-mode-select">Arrival Mode</label>
+            <div class="select-wrapper">
+              <select id="arrival-mode-select" name="arrival_mode" required>
+                <option value="metro">Metro Transit</option>
+                <option value="parking">Self Parking</option>
+                <option value="rideshare">Rideshare Drop-off</option>
+                <option value="shuttle">Event Shuttle Bus</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Timing Slider -->
+          <div class="form-group">
+            <div class="slider-header">
+              <label id="kickoff-slider-label" for="kickoff-slider">Time to Kickoff</label>
+              <span id="kickoff-value" class="badge">40 minutes</span>
+            </div>
+            <input type="range" id="kickoff-slider" name="minutes_to_kickoff" min="-180" max="180" value="40" aria-describedby="kickoff-slider-desc">
+            <small id="kickoff-slider-desc" class="form-help">Negative values simulate post-kickoff or egress phase (leave match at &lt; -105 mins).</small>
+          </div>
+
+          <!-- Accessibility fieldset -->
+          <fieldset class="form-fieldset">
+            <legend class="fieldset-legend">Accessibility Options</legend>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="need-mobility" name="accessibility_needs" value="mobility">
+                <label for="need-mobility">♿ Step-free / Mobility Access</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="need-visual" name="accessibility_needs" value="visual">
+                <label for="need-visual">👁️ High Contrast / Audio Landmarks</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="need-hearing" name="accessibility_needs" value="hearing">
+                <label for="need-hearing">👂 Captioned Responses</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Free text question -->
+          <div class="form-group">
+            <label for="question-input">Ask the Copilot (Optional free-text)</label>
+            <textarea id="question-input" name="question" rows="2" max_length="1000" placeholder="e.g. Arriving by metro with a wheelchair, section 128. What is my best gate?"></textarea>
+          </div>
+
+          <button type="submit" id="submit-btn" class="submit-btn">
+            Calculate Best Route
+          </button>
+        </form>
+      </section>
+
+      <!-- Right Column: Results & Interactive Map / Dashboard -->
+      <div class="right-column-grid">
+        
+        <!-- Response / AI output -->
+        <section class="panel result-panel" aria-labelledby="result-heading">
+          <h2 id="result-heading" class="panel-title">Copilot Guidance</h2>
+          <div id="response-region" class="response-region" role="log" aria-live="polite" aria-busy="false">
+            <div class="empty-state">
+              <span class="empty-icon" aria-hidden="true">🗺️</span>
+              <p>Configure parameters and click "Calculate Best Route" to receive live directions.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dynamic Stadium Status & Transport Widget -->
+        <section class="panel details-panel" aria-labelledby="status-heading">
+          <h2 id="status-heading" class="panel-title">Live Venue Status</h2>
+          
+          <div class="tabs-container">
+            <div class="tabs-nav" role="tablist" aria-label="Venue status navigation">
+              <button id="tab-gates" role="tab" aria-selected="true" aria-controls="panel-gates" tabindex="0">Stadium Gates</button>
+              <button id="tab-transport" role="tab" aria-selected="false" aria-controls="panel-transport" tabindex="-1">Transport Terminal Advice</button>
+            </div>
+            
+            <!-- Gates Status Panel -->
+            <div id="panel-gates" role="tabpanel" aria-labelledby="tab-gates" class="tab-content" tabindex="0">
+              <ul class="status-list" id="gates-status-list">
+                <!-- Javascript dynamic population -->
+                <li class="loading">Loading live gate streams...</li>
+              </ul>
+            </div>
+
+            <!-- Transport Advice Panel -->
+            <div id="panel-transport" role="tabpanel" aria-labelledby="tab-transport" class="tab-content hidden" tabindex="0">
+              <div class="transport-advisory-intro">
+                Ranked best arrival options for current timeline:
+              </div>
+              <ul class="status-list" id="transport-advice-list">
+                <!-- Javascript dynamic population -->
+                <li class="loading">Loading travel times...</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>© 2026 FIFA World Cup Crowd Logistics & Operations Command. All rights reserved.</p>
+      <p class="footer-warning">Simulated crowd model. In case of emergency, follow physical stewards and stadium loudspeaker commands.</p>
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="noscript-overlay">
+      <div class="noscript-card">
+        <h2>JavaScript Required</h2>
+        <p>GateFlow requires JavaScript to compute real-time crowd dynamics, query the local flow simulator, and render interactive navigation paths.</p>
+        <p>Please enable JavaScript in your browser settings to proceed.</p>
+      </div>
+    </div>
+  </noscript>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

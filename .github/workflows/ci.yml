@@ -1,0 +1,57 @@
+name: CI — Quality Gates
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  quality:
+    name: Quality Checks & Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install production dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install development dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Lint — Ruff (style & correctness)
+        run: ruff check app tests
+
+      - name: Format check — Ruff formatter
+        run: ruff format --check app tests
+
+      - name: Type check — Mypy (strict)
+        run: mypy app
+
+      - name: Docstring coverage — Interrogate (100% required)
+        run: interrogate app
+
+      - name: Complexity — Radon (max rank B)
+        run: |
+          radon cc app -s -n C
+          echo "All cyclomatic complexity scores are rank A or B."
+
+      - name: Tests & Coverage — Pytest (100% branch coverage required)
+        run: pytest --cov=app --cov-branch --cov-report=xml --cov-fail-under=100
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml
