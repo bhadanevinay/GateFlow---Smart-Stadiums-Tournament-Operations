@@ -153,7 +153,10 @@ def test_api_assist_route_not_found(client: TestClient) -> None:
         "accessibility_needs": [],
         "minutes_to_kickoff": 40,
     }
-    with patch("app.api.routes_assist.select_best_gate", side_effect=RouteNotFoundError("No path found")):
+    with patch(
+        "app.api.routes_assist.select_best_gate",
+        side_effect=RouteNotFoundError("No path found"),
+    ):
         response = client.post("/api/assist", json=payload)
     assert response.status_code == 404
     assert "No path found" in response.json()["detail"]

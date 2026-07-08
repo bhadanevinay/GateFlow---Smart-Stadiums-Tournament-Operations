@@ -162,7 +162,9 @@ def test_egress_no_accessible_gates() -> None:
         )
     ]
     with pytest.raises(RouteNotFoundError):
-        calculate_egress_route(context, non_accessible_gates, {}, MOCK_GRAPH, MOCK_TRANSPORT)
+        calculate_egress_route(
+            context, non_accessible_gates, {}, MOCK_GRAPH, MOCK_TRANSPORT
+        )
 
 
 def test_egress_critical_congestion() -> None:

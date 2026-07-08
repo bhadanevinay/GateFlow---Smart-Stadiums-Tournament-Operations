@@ -130,7 +130,9 @@ class SectionInfoSchema(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     zone: str = Field(..., description="Zone the section belongs to.")
-    accessible: bool = Field(..., description="Whether the section has step-free access.")
+    accessible: bool = Field(
+        ..., description="Whether the section has step-free access."
+    )
 
 
 class VenueInfoResponseSchema(BaseModel):
@@ -141,7 +143,9 @@ class VenueInfoResponseSchema(BaseModel):
     name: str = Field(..., description="Venue name.")
     total_capacity: int = Field(..., ge=0, description="Total stadium capacity.")
     zones: dict[str, ZoneInfoSchema] = Field(..., description="Map of stadium zones.")
-    sections: dict[str, SectionInfoSchema] = Field(..., description="Map of stadium sections.")
+    sections: dict[str, SectionInfoSchema] = Field(
+        ..., description="Map of stadium sections."
+    )
 
 
 class GateDetailSchema(BaseModel):

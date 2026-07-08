@@ -24,7 +24,10 @@ MOCK_NODES = {
 }
 
 
-@patch("app.services.flow_engine.transport_advisor.get_gate_congestion", return_value=CongestionLevel.LOW)
+@patch(
+    "app.services.flow_engine.transport_advisor.get_gate_congestion",
+    return_value=CongestionLevel.LOW,
+)
 def test_transport_ranking_by_time(mock_get_congestion: MagicMock) -> None:  # noqa: ARG001
     """Verifies that transport options are correctly calculated and ranked."""
     # Under low congestion:
@@ -43,7 +46,10 @@ def test_transport_ranking_by_time(mock_get_congestion: MagicMock) -> None:  # n
     assert options[1].total_travel_time_minutes == 22.0
 
 
-@patch("app.services.flow_engine.transport_advisor.get_gate_congestion", return_value=CongestionLevel.LOW)
+@patch(
+    "app.services.flow_engine.transport_advisor.get_gate_congestion",
+    return_value=CongestionLevel.LOW,
+)
 def test_transport_mobility_adds_wait(mock_get_congestion: MagicMock) -> None:  # noqa: ARG001
     """Verifies that mobility needs append terminal delay constants."""
     # Under low congestion:
@@ -59,7 +65,10 @@ def test_transport_mobility_adds_wait(mock_get_congestion: MagicMock) -> None:  
     assert metro_opt.total_travel_time_minutes == 20.0
 
 
-@patch("app.services.flow_engine.transport_advisor.get_gate_congestion", return_value=CongestionLevel.LOW)
+@patch(
+    "app.services.flow_engine.transport_advisor.get_gate_congestion",
+    return_value=CongestionLevel.LOW,
+)
 def test_invalid_mode_ignored(mock_get_congestion: MagicMock) -> None:  # noqa: ARG001
     """Checks that invalid keys in JSON are ignored gracefully."""
     bad_nodes = {

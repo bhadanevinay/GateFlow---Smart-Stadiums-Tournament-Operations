@@ -181,9 +181,7 @@ def test_gate_selector_critical_urgency() -> None:
         accessibility_needs=[],
         minutes_to_kickoff=5,  # UrgencyTier.CRITICAL
     )
-    gate, route, urgency, _ = select_best_gate(
-        context, MOCK_GATES, {}, MOCK_GRAPH
-    )
+    gate, route, urgency, _ = select_best_gate(context, MOCK_GATES, {}, MOCK_GRAPH)
     assert urgency == UrgencyTier.CRITICAL
 
 

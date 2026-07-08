@@ -187,7 +187,9 @@ def select_best_gate(
     merged_route = _merge_route_plans(r1, r2)
 
     # Formulate reasoning summary for decision record
-    desc_str = "fastest" if urgency != UrgencyTier.NORMAL else "least congested accessible"
+    desc_str = (
+        "fastest" if urgency != UrgencyTier.NORMAL else "least congested accessible"
+    )
     reasoning = (
         f"Selected {best_gate.name} because it is the {desc_str} "
         f"route to Section {context.ticket_section} under {urgency.value} urgency."

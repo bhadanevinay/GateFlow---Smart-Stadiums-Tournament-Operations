@@ -51,4 +51,3 @@ def test_security_headers_present(client: TestClient) -> None:
     assert headers.get("X-Content-Type-Options") == "nosniff"
     assert headers.get("Referrer-Policy") == "no-referrer"
     assert headers.get("X-Frame-Options") == "DENY"
-

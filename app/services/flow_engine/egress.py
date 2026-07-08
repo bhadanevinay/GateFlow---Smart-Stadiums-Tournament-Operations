@@ -47,8 +47,7 @@ def _score_egress_gate(
         return None
 
     total_time = (
-        route_section_to_gate.estimated_minutes
-        + route_gate_to_dest.estimated_minutes
+        route_section_to_gate.estimated_minutes + route_gate_to_dest.estimated_minutes
     )
     congestion_lvl = congestion_by_gate.get(gate.id, CongestionLevel.LOW)
 
