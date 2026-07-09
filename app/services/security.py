@@ -13,6 +13,7 @@ from typing import TYPE_CHECKING, Final
 import redis
 
 from app.exceptions import RateLimitExceededError
+from app.models.schemas import MAX_QUESTION_LENGTH
 
 if TYPE_CHECKING:
     from app.config import Settings
@@ -27,10 +28,14 @@ PRUNE_THRESHOLD_SEC: Final[float] = 120.0  # Idle threshold to remove bucket
 # Sanitization constants
 ASCII_PRINTABLE_MIN: Final[int] = 32
 ASCII_DELETE: Final[int] = 127
-MAX_QUESTION_LENGTH: Final[int] = 1000
 
 # Lua script for atomic Redis token bucket
 LUA_RATE_LIMITER: Final[str] = """
+-- Atomic token bucket implementation:
+-- 1. Fetch current tokens and last_update timestamp from Redis hash
+-- 2. Calculate elapsed time and refill tokens (capped at max_tokens)
+-- 3. Attempt to consume 'cost' tokens
+-- 4. Return {1, 0} on success, {0, wait_time} on rate-limited
 local key = KEYS[1]
 local max_tokens = tonumber(ARGV[1])
 local refill_rate = tonumber(ARGV[2])

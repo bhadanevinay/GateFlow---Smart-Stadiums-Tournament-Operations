@@ -11,6 +11,7 @@ import logging
 from typing import TYPE_CHECKING, Final
 
 from app.exceptions import LLMUnavailableError
+from app.models.schemas import MAX_QUESTION_LENGTH
 
 if TYPE_CHECKING:
     from app.models.schemas import FanContextSchema
@@ -20,8 +21,9 @@ logger = logging.getLogger("gateflow")
 
 # Prompt token limit
 MAX_OUTPUT_TOKENS: Final[int] = 220
-MAX_QUESTION_LENGTH: Final[int] = 1000
 
+# Strict grounding prompt: ensures LLM ONLY uses data from the Decision JSON
+# and does not hallucinate gate names, landmarks, or walking times
 PROMPT_TEMPLATE: Final[
     str
 ] = """You are a helpful stadium assistant for the GateFlow app.
@@ -88,7 +90,7 @@ async def phrase_with_llm(
             return response_text, True
     except LLMUnavailableError as e:
         logger.warning("LLM client unavailable, falling back to templates: %s", e)
-    except Exception:  # Outermost boundary safe catch as specified in §5.2
+    except Exception:  # Outermost boundary safe catch for LLM phrasing layer
         logger.exception(
             "Unexpected error in LLM phrasing layer, falling back to templates."
         )

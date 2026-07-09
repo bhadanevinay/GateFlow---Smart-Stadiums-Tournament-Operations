@@ -8,7 +8,7 @@
   --bg-panel: rgba(16, 20, 38, 0.7);
   --bg-panel-border: rgba(255, 255, 255, 0.08);
   --text-main: #f3f4f6;
-  --text-muted: #9ca3af;
+  --text-muted: #a8b2be;  /* Improved contrast ratio: ~5.0:1 against #060813 */
   --primary: #10b981; /* Safe Emerald */
   --primary-hover: #059669;
   --primary-glow: rgba(16, 185, 129, 0.2);
@@ -31,7 +31,7 @@
   --bg-panel: rgba(255, 255, 255, 0.85);
   --bg-panel-border: rgba(0, 0, 0, 0.08);
   --text-main: #0f172a;
-  --text-muted: #64748b;
+  --text-muted: #5b6b80;  /* Improved contrast ratio: ~5.4:1 against #f0f4f9 */
   --primary: #059669;
   --primary-hover: #047857;
   --primary-glow: rgba(5, 150, 105, 0.1);
@@ -774,8 +774,12 @@ textarea {
 
 .footer-warning {
   color: var(--danger);
-  font-weight: 500;
-  opacity: 0.85;
+  font-weight: 600;  /* Safety text needs maximum legibility */
+  opacity: 1;
+}
+
+[data-theme="light"] .app-footer {
+    background: var(--bg-panel);  /* Match panel bg for consistent contrast in light mode */
 }
 
 /* Noscript Styling */

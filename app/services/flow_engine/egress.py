@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING, Any, Final
 from app.exceptions import RouteNotFoundError, UnknownZoneError
 from app.models.domain import GateInfo, RoutePlan
 from app.models.enums import AccessibilityNeed, CongestionLevel
-from app.services.flow_engine.routing import calculate_route
+from app.services.flow_engine.routing import calculate_route, merge_route_plans
 
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
@@ -52,29 +52,13 @@ def _score_egress_gate(
     congestion_lvl = congestion_by_gate.get(gate.id, CongestionLevel.LOW)
 
     score = total_time
+    # Apply exponential penalty for congested exit gates to avoid crowd bottlenecks
     if congestion_lvl == CongestionLevel.CRITICAL:
         score += CONGESTION_EGRESS_PENALTY * 2
     elif congestion_lvl == CongestionLevel.HIGH:
         score += CONGESTION_EGRESS_PENALTY
 
     return score, route_section_to_gate, route_gate_to_dest
-
-
-def _merge_route_plans(r1: RoutePlan, r2: RoutePlan) -> RoutePlan:
-    """Helper to merge route plans for the two segments (start->gate->dest)."""
-    merged_steps = r1.steps[:-1] + r2.steps
-    merged_distance = r1.distance_meters + r2.distance_meters
-    merged_minutes = r1.estimated_minutes + r2.estimated_minutes
-    merged_landmarks = r1.landmarks + r2.landmarks
-    merged_step_free = r1.step_free and r2.step_free
-
-    return RoutePlan(
-        steps=merged_steps,
-        distance_meters=merged_distance,
-        estimated_minutes=merged_minutes,
-        landmarks=merged_landmarks,
-        step_free=merged_step_free,
-    )
 
 
 def calculate_egress_route(
@@ -149,7 +133,7 @@ def calculate_egress_route(
     scored_candidates.sort(key=lambda x: x[0])
     _, best_gate, r1, r2 = scored_candidates[0]
 
-    merged_route = _merge_route_plans(r1, r2)
+    merged_route = merge_route_plans(r1, r2)
 
     reasoning = (
         f"Selected exit {best_gate.name} as the safest, least congested egress route "

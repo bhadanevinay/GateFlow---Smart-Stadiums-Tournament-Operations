@@ -1,5 +1,12 @@
 # GateFlow API
 
+![CI](https://github.com/bhadanevinay/GateFlow---Smart-Stadiums-Tournament-Operations/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.12-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
+![Ruff](https://img.shields.io/badge/linter-ruff-orange.svg)
+![mypy](https://img.shields.io/badge/type%20checker-mypy%20strict-blue.svg)
+
 🚀 **Live Deployment:** [https://gateflow.duckdns.org/](https://gateflow.duckdns.org/)
 
 GateFlow is a real-time stadium pedestrian flow routing and transit advising system. It calculates optimized paths for stadium arrivals and egress, taking into account user context, seat sections, real-time gate congestion levels, and accessibility needs. The system features a deterministic core routing engine paired with a localized templates or LLM phrasing layer (using Google Gemini) to generate natural language directions.

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Mapping, Sequence
-from typing import TYPE_CHECKING, Any, Final
+from typing import TYPE_CHECKING
 
 from fastapi import APIRouter, Request
 
@@ -15,7 +15,10 @@ from app.models.schemas import (
     DecisionResultSchema,
     FanContextSchema,
 )
-from app.services.flow_engine.congestion import get_gate_congestion
+from app.services.flow_engine.congestion import (
+    MINUTES_EGRESS_THRESHOLD,
+    get_gate_congestion,
+)
 from app.services.flow_engine.egress import calculate_egress_route
 from app.services.flow_engine.gate_selector import select_best_gate
 from app.services.phrasing.llm_phraser import phrase_with_llm
@@ -28,9 +31,11 @@ from app.services.venue_data import (
     load_transport_nodes,
 )
 
-MINUTES_EGRESS_THRESHOLD: Final[int] = -105
+# Egress mode activates 105+ minutes after kickoff (full 90-min match + 15-min halftime)
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from app.models.domain import GateInfo, RoutePlan
 
 router = APIRouter()
@@ -162,7 +167,8 @@ async def post_assist(
     answer = fallback_text
 
     llm_client = getattr(request.app.state, "llm_client", None)
-    # Only call LLM if a client exists and a question was typed (respects §0 and §2.3)
+    # Only call LLM if a client exists and a question was typed
+    # Flow: validate context → determine route → select gate → phrase response
     if llm_client is not None and context.question and context.question.strip():
         # Create intermediate serializable result for grounding prompt
         serializable_result = {

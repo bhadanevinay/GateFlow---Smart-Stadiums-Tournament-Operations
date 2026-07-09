@@ -79,7 +79,7 @@ async def gateflow_error_handler(
     """Handles domain-specific GateFlow errors by returning a 400 Bad Request.
 
     Args:
-        request: FastAPI request.
+        _request: The incoming request (unused).
         exc: Exception instance.
 
     Returns:
@@ -100,7 +100,7 @@ async def route_not_found_handler(
     """Handles routing path resolution failures with a 404 Not Found.
 
     Args:
-        request: FastAPI request.
+        _request: The incoming request (unused).
         exc: Exception instance.
 
     Returns:
@@ -121,7 +121,7 @@ async def rate_limit_handler(
     """Handles rate limit breaches with a 429 Too Many Requests response.
 
     Args:
-        request: FastAPI request.
+        _request: The incoming request (unused).
         exc: Exception instance.
 
     Returns:

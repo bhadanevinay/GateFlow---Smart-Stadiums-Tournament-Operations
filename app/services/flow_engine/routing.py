@@ -106,6 +106,7 @@ def _dijkstra_search(
         if curr_node == end_node:
             break
 
+        # Skip stale entries: if we already found a shorter path, skip this node
         if curr_dist > distances[curr_node]:  # pragma: no cover
             continue
 
@@ -191,4 +192,27 @@ def calculate_route(
         predecessors=predecessors,
         distances=distances,
         require_step_free=require_step_free,
+    )
+
+
+def merge_route_plans(plan_a: RoutePlan, plan_b: RoutePlan) -> RoutePlan:
+    """Merges two sequential route plans into a single combined plan.
+
+    Concatenates the steps, sums distances and times, and merges landmarks
+    while preserving step-free status.
+
+    Args:
+        plan_a: The first route segment.
+        plan_b: The second route segment.
+
+    Returns:
+        A single combined RoutePlan covering both segments.
+
+    """
+    return RoutePlan(
+        steps=plan_a.steps[:-1] + plan_b.steps,
+        distance_meters=plan_a.distance_meters + plan_b.distance_meters,
+        estimated_minutes=plan_a.estimated_minutes + plan_b.estimated_minutes,
+        landmarks=list(dict.fromkeys(plan_a.landmarks + plan_b.landmarks)),
+        step_free=plan_a.step_free and plan_b.step_free,
     )

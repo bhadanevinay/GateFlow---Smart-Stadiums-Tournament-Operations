@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Any
+from typing import TYPE_CHECKING, Annotated
+
+if TYPE_CHECKING:
+    from typing import Any
 
 from fastapi import APIRouter, Query
 

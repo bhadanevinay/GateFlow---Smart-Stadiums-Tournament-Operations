@@ -67,6 +67,8 @@ def get_gate_congestion(
         current_hour = datetime.datetime.now(datetime.UTC).hour
 
     # 3. Compute deterministic variation using hashing
+    # Generate deterministic pseudo-random seed from gate_id + hour to ensure
+    # consistent congestion values within the same hour across requests
     seed_str = f"{gate_id}:{current_hour}"
     hasher = hashlib.md5(seed_str.encode("utf-8"), usedforsecurity=False)
     seed_val = int(hasher.hexdigest()[:8], 16)

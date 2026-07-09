@@ -5,6 +5,8 @@ Uses pydantic-settings to load configuration from environment variables.
 
 from __future__ import annotations
 
+__all__ = ["Settings", "settings"]
+
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 

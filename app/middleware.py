@@ -14,8 +14,6 @@ from app.exceptions import RateLimitExceededError
 from app.logging_conf import request_id_var
 
 if TYPE_CHECKING:
-    import logging
-
     from starlette.middleware.base import RequestResponseEndpoint
     from starlette.types import ASGIApp
 

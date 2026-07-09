@@ -13,6 +13,11 @@
 <body>
   <!-- Accessibility Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
+  <noscript>
+    <div style="padding: 2rem; text-align: center; background: #ef4444; color: #fff; font-family: sans-serif;">
+      JavaScript is required to use the GateFlow Copilot. Please enable JavaScript in your browser settings.
+    </div>
+  </noscript>
 
   <!-- Header Section -->
   <header class="app-header">
@@ -112,7 +117,7 @@
               <label id="kickoff-slider-label" for="kickoff-slider">Time to Kickoff</label>
               <span id="kickoff-value" class="badge">40 minutes</span>
             </div>
-            <input type="range" id="kickoff-slider" name="minutes_to_kickoff" min="-180" max="180" value="40" aria-describedby="kickoff-slider-desc">
+            <input type="range" id="kickoff-slider" name="minutes_to_kickoff" min="-180" max="180" value="40" aria-describedby="kickoff-value kickoff-slider-desc">
             <small id="kickoff-slider-desc" class="form-help">Negative values simulate post-kickoff or egress phase (leave match at &lt; -105 mins).</small>
           </div>
 
@@ -122,15 +127,15 @@
             <div class="checkbox-group">
               <div class="checkbox-item">
                 <input type="checkbox" id="need-mobility" name="accessibility_needs" value="mobility">
-                <label for="need-mobility">♿ Step-free / Mobility Access</label>
+                <label for="need-mobility"><span aria-hidden="true">♿</span> Step-free / Mobility Access</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="need-visual" name="accessibility_needs" value="visual">
-                <label for="need-visual">👁️ High Contrast / Audio Landmarks</label>
+                <label for="need-visual"><span aria-hidden="true">👁️</span> High Contrast / Audio Landmarks</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="need-hearing" name="accessibility_needs" value="hearing">
-                <label for="need-hearing">👂 Captioned Responses</label>
+                <label for="need-hearing"><span aria-hidden="true">👂</span> Captioned Responses</label>
               </div>
             </div>
           </fieldset>
@@ -138,7 +143,7 @@
           <!-- Free text question -->
           <div class="form-group">
             <label for="question-input">Ask the Copilot (Optional free-text)</label>
-            <textarea id="question-input" name="question" rows="2" max_length="1000" placeholder="e.g. Arriving by metro with a wheelchair, section 128. What is my best gate?"></textarea>
+            <textarea id="question-input" name="question" rows="2" maxlength="1000" placeholder="e.g. Arriving by metro with a wheelchair, section 128. What is my best gate?"></textarea>
           </div>
 
           <button type="submit" id="submit-btn" class="submit-btn">

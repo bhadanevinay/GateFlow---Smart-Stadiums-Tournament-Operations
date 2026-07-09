@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Final
+
 from pydantic import BaseModel, ConfigDict, Field
 
 from app.models.enums import (
@@ -11,6 +13,9 @@ from app.models.enums import (
     Language,
     UrgencyTier,
 )
+
+# Centralized max question length constant (imported by security.py and llm_phraser.py)
+MAX_QUESTION_LENGTH: Final[int] = 1000
 
 
 class FanContextSchema(BaseModel):
@@ -50,7 +55,7 @@ class FanContextSchema(BaseModel):
     )
     question: str | None = Field(
         default=None,
-        max_length=1000,
+        max_length=MAX_QUESTION_LENGTH,
         description="Optional free-text question asked by the fan.",
     )
 

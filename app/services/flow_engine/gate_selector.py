@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING, Final
 from app.exceptions import RouteNotFoundError
 from app.models.domain import GateInfo, RoutePlan
 from app.models.enums import AccessibilityNeed, CongestionLevel, UrgencyTier
-from app.services.flow_engine.routing import calculate_route
+from app.services.flow_engine.routing import calculate_route, merge_route_plans
 
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
@@ -70,8 +70,10 @@ def _score_gate_candidate(
     congestion_num = CONGESTION_VALUES[congestion_lvl]
 
     if urgency in (UrgencyTier.HURRY, UrgencyTier.CRITICAL):
+        # Under time pressure: weight congestion 1.5x to prioritize faster gates
         score = total_time + (congestion_num * 1.5)
     else:
+        # Normal mode: standard congestion weighting
         score = total_time + (congestion_num * 8.0)
 
     if (
@@ -90,23 +92,6 @@ def _get_urgency_tier(minutes_to_kickoff: int) -> UrgencyTier:
     if minutes_to_kickoff <= URGENT_WINDOW_MINUTES:
         return UrgencyTier.HURRY
     return UrgencyTier.NORMAL
-
-
-def _merge_route_plans(r1: RoutePlan, r2: RoutePlan) -> RoutePlan:
-    """Helper to merge route plans for the two segments (start->gate->dest)."""
-    merged_steps = r1.steps[:-1] + r2.steps
-    merged_distance = r1.distance_meters + r2.distance_meters
-    merged_minutes = r1.estimated_minutes + r2.estimated_minutes
-    merged_landmarks = r1.landmarks + r2.landmarks
-    merged_step_free = r1.step_free and r2.step_free
-
-    return RoutePlan(
-        steps=merged_steps,
-        distance_meters=merged_distance,
-        estimated_minutes=merged_minutes,
-        landmarks=merged_landmarks,
-        step_free=merged_step_free,
-    )
 
 
 def select_best_gate(
@@ -184,7 +169,7 @@ def select_best_gate(
     scored_candidates.sort(key=lambda x: x[0])
     _, best_gate, r1, r2 = scored_candidates[0]
 
-    merged_route = _merge_route_plans(r1, r2)
+    merged_route = merge_route_plans(r1, r2)
 
     # Formulate reasoning summary for decision record
     desc_str = (

@@ -2,6 +2,15 @@
 
 from __future__ import annotations
 
+__all__ = [
+    "GateFlowError",
+    "LLMUnavailableError",
+    "RateLimitExceededError",
+    "RouteNotFoundError",
+    "UnknownGateError",
+    "UnknownZoneError",
+]
+
 
 class GateFlowError(Exception):
     """Base exception class for all GateFlow domain errors."""

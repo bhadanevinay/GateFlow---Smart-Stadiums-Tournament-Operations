@@ -274,8 +274,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await res.json();
 
-      // Update document HTML lang attribute dynamically (respects §8)
-      document.documentElement.setAttribute("lang", payload.language);
+      // Scope language attribute to the guidance text only (WCAG 3.1.2)
+      // The surrounding UI stays in English — only the answer text changes language
+      const guidanceText = document.getElementById("guidance-text");
+      if (guidanceText) {
+          guidanceText.setAttribute("lang", data.language || "en");
+      }
 
       // Create Guidance Bubble
       const bubble = document.createElement("div");
@@ -287,6 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
       
       const gText = document.createElement("p");
       gText.className = "guidance-text";
+      gText.id = "guidance-text";
       gText.appendChild(createSafeText(data.answer));
 
       bubble.appendChild(gTitle);
@@ -355,6 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
       responseRegion.innerHTML = "";
       const errorDiv = document.createElement("div");
       errorDiv.className = "guidance-bubble";
+      errorDiv.setAttribute("role", "alert");
       errorDiv.style.borderLeftColor = "var(--danger)";
       
       const errTitle = document.createElement("div");
@@ -381,10 +387,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function switchTab(selectedTab, targetPanel, otherTab, otherPanel) {
     selectedTab.setAttribute("aria-selected", "true");
     selectedTab.setAttribute("tabindex", "0");
+    selectedTab.setAttribute("aria-current", "page");
     targetPanel.classList.remove("hidden");
 
     otherTab.setAttribute("aria-selected", "false");
     otherTab.setAttribute("tabindex", "-1");
+    otherTab.removeAttribute("aria-current");
     otherPanel.classList.add("hidden");
 
     selectedTab.focus();
@@ -398,7 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
     switchTab(tabTransport, panelTransport, tabGates, panelGates);
   });
 
-  // Tab Keyboard navigation (Arrow keys support)
+  // Keyboard-accessible tab navigation with roving tabindex (WAI-ARIA Tabs pattern)
   const tabList = [tabGates, tabTransport];
   tabList.forEach((tab, idx) => {
     tab.addEventListener("keydown", (e) => {
