@@ -7,6 +7,8 @@ templates is automatically handled on any failure.
 
 from __future__ import annotations
 
+__all__ = ["phrase_with_llm"]
+
 import logging
 from typing import TYPE_CHECKING, Final
 

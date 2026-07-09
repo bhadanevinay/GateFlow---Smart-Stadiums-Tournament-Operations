@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+__all__ = ["GeminiClient", "LLMClient", "MockLLM", "get_llm_client"]
+
 from typing import TYPE_CHECKING, Protocol
 
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 from app.exceptions import LLMUnavailableError
 
@@ -62,15 +65,15 @@ class GeminiClient:  # pragma: no cover
     """Live Google Gemini client implementing the LLMClient protocol."""
 
     def __init__(self, api_key: str, model_name: str) -> None:
-        """Initializes the Gemini generative model SDK configuration.
+        """Initializes the Gemini client.
 
         Args:
             api_key: Downstream Google Gemini credentials.
             model_name: Model identifier (e.g. 'gemini-2.5-flash').
 
         """
-        genai.configure(api_key=api_key)  # type: ignore[attr-defined] # SDK stub gap
-        self.model = genai.GenerativeModel(model_name)  # type: ignore[attr-defined] # SDK stub gap
+        self.client = genai.Client(api_key=api_key)
+        self.model_name = model_name
 
     async def generate_text(self, prompt: str, max_tokens: int) -> str:
         """Generates text via Google Gemini async API.
@@ -87,13 +90,14 @@ class GeminiClient:  # pragma: no cover
 
         """
         try:
-            generation_config = genai.types.GenerationConfig(
+            generation_config = types.GenerateContentConfig(
                 max_output_tokens=max_tokens,
                 temperature=0.2,  # Low temperature for fact grounding
             )
-            response = await self.model.generate_content_async(
-                prompt,
-                generation_config=generation_config,
+            response = await self.client.aio.models.generate_content(
+                model=self.model_name,
+                contents=prompt,
+                config=generation_config,
             )
             resp_text = response.text
         except Exception as e:

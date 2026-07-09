@@ -6,6 +6,8 @@ and time-to-kickoff.
 
 from __future__ import annotations
 
+__all__ = ["select_best_gate"]
+
 from typing import TYPE_CHECKING, Final
 
 from app.exceptions import RouteNotFoundError

@@ -6,6 +6,8 @@ for users with mobility accessibility needs.
 
 from __future__ import annotations
 
+__all__ = ["calculate_route", "merge_route_plans"]
+
 import heapq
 from typing import TYPE_CHECKING, Any, Final, cast
 

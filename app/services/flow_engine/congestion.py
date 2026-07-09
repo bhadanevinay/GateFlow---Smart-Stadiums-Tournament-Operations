@@ -6,6 +6,8 @@ pseudo-random seed derived from the gate ID and the current hour.
 
 from __future__ import annotations
 
+__all__ = ["MINUTES_EGRESS_THRESHOLD", "get_gate_congestion"]
+
 import datetime
 import hashlib
 from typing import Final

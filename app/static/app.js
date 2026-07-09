@@ -274,13 +274,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await res.json();
 
-      // Scope language attribute to the guidance text only (WCAG 3.1.2)
-      // The surrounding UI stays in English — only the answer text changes language
-      const guidanceText = document.getElementById("guidance-text");
-      if (guidanceText) {
-          guidanceText.setAttribute("lang", data.language || "en");
-      }
-
       // Create Guidance Bubble
       const bubble = document.createElement("div");
       bubble.className = "guidance-bubble";
@@ -292,6 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const gText = document.createElement("p");
       gText.className = "guidance-text";
       gText.id = "guidance-text";
+      gText.setAttribute("lang", payload.language);
       gText.appendChild(createSafeText(data.answer));
 
       bubble.appendChild(gTitle);

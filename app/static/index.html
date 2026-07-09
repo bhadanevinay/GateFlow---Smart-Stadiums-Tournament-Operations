@@ -117,7 +117,7 @@
               <label id="kickoff-slider-label" for="kickoff-slider">Time to Kickoff</label>
               <span id="kickoff-value" class="badge">40 minutes</span>
             </div>
-            <input type="range" id="kickoff-slider" name="minutes_to_kickoff" min="-180" max="180" value="40" aria-describedby="kickoff-value kickoff-slider-desc">
+            <input type="range" id="kickoff-slider" name="minutes_to_kickoff" min="-180" max="180" value="40" aria-describedby="kickoff-value">
             <small id="kickoff-slider-desc" class="form-help">Negative values simulate post-kickoff or egress phase (leave match at &lt; -105 mins).</small>
           </div>
 
@@ -127,15 +127,15 @@
             <div class="checkbox-group">
               <div class="checkbox-item">
                 <input type="checkbox" id="need-mobility" name="accessibility_needs" value="mobility">
-                <label for="need-mobility"><span aria-hidden="true">♿</span> Step-free / Mobility Access</label>
+                <label for="need-mobility"><span aria-hidden="true">♿</span> Mobility / Wheelchair</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="need-visual" name="accessibility_needs" value="visual">
-                <label for="need-visual"><span aria-hidden="true">👁️</span> High Contrast / Audio Landmarks</label>
+                <label for="need-visual"><span aria-hidden="true">👁️</span> Visual / Low Vision</label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="need-hearing" name="accessibility_needs" value="hearing">
-                <label for="need-hearing"><span aria-hidden="true">👂</span> Captioned Responses</label>
+                <label for="need-hearing"><span aria-hidden="true">🦻</span> Hearing</label>
               </div>
             </div>
           </fieldset>
@@ -158,7 +158,7 @@
         <!-- Response / AI output -->
         <section class="panel result-panel" aria-labelledby="result-heading">
           <h2 id="result-heading" class="panel-title">Copilot Guidance</h2>
-          <div id="response-region" class="response-region" role="log" aria-live="polite" aria-busy="false">
+          <div id="response-region" class="response-region" role="log" aria-live="polite" aria-busy="false" aria-atomic="true">
             <div class="empty-state">
               <span class="empty-icon" aria-hidden="true">🗺️</span>
               <p>Configure parameters and click "Calculate Best Route" to receive live directions.</p>
@@ -172,7 +172,7 @@
           
           <div class="tabs-container">
             <div class="tabs-nav" role="tablist" aria-label="Venue status navigation">
-              <button id="tab-gates" role="tab" aria-selected="true" aria-controls="panel-gates" tabindex="0">Stadium Gates</button>
+              <button id="tab-gates" role="tab" aria-selected="true" aria-current="page" aria-controls="panel-gates" tabindex="0">Stadium Gates</button>
               <button id="tab-transport" role="tab" aria-selected="false" aria-controls="panel-transport" tabindex="-1">Transport Terminal Advice</button>
             </div>
             

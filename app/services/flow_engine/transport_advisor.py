@@ -6,6 +6,8 @@ base durations with congestion factors, terminal queues, and accessibility overr
 
 from __future__ import annotations
 
+__all__ = ["recommend_transport"]
+
 from typing import TYPE_CHECKING, Any, Final
 
 from app.models.domain import TransportOption

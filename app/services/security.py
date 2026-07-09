@@ -6,6 +6,8 @@ supporting atomic Lua script token consumption and a graceful in-memory fallback
 
 from __future__ import annotations
 
+__all__ = ["RateLimiter", "sanitize_question"]
+
 import logging
 import time
 from typing import TYPE_CHECKING, Final

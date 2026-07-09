@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+__all__ = ["PhraseTemplates", "get_template"]
+
 from functools import lru_cache
 from typing import Final, NamedTuple
 

@@ -6,6 +6,8 @@ guiding them from their seat section to their selected onward transport station.
 
 from __future__ import annotations
 
+__all__ = ["calculate_egress_route"]
+
 from typing import TYPE_CHECKING, Any, Final
 
 from app.exceptions import RouteNotFoundError, UnknownZoneError

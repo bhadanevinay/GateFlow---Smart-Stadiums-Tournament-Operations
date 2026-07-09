@@ -6,6 +6,8 @@ localized templates, with zero I/O.
 
 from __future__ import annotations
 
+__all__ = ["phrase_decision"]
+
 from typing import TYPE_CHECKING, Final
 
 from app.models.enums import CongestionLevel, Language, UrgencyTier
